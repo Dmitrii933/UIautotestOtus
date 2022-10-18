@@ -37,9 +37,7 @@ public class MainPage_Test {
                 .open();
 
         new PopularCursComponent(driver)
-                .clickPopularCursItems(0);
-
-
+                .clickPopularCursItems(3);
 
     }
 

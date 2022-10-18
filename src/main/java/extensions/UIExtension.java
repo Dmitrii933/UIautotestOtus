@@ -14,8 +14,7 @@ import java.security.PrivilegedAction;
 import java.util.HashSet;
 import java.util.Set;
 
-import static driver.Browser.CHROME;
-import static driver.Browser.FIREFOX;
+import static driver.Browser.*;
 
 public class UIExtension implements BeforeEachCallback, AfterEachCallback {
 
@@ -37,7 +36,7 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback {
 
   @Override
   public void beforeEach(ExtensionContext extensionContext) {
-    driver = new DriverFactory().getDriver(CHROME);
+    driver = new DriverFactory().getDriver(EDGE);
     Set<Field> fields = getAnnotatedFields(Driver.class, extensionContext);
 
     for (Field field : fields) {

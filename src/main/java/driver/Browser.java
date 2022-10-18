@@ -1,5 +1,5 @@
 package driver;
 
 public enum Browser {
-    CHROME, FIREFOX, OPERA
+    CHROME, FIREFOX, OPERA, EDGE
 }

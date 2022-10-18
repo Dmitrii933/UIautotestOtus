@@ -18,7 +18,7 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
     public PopularCursComponent(WebDriver driver) {
         super(driver);
     }
-    @FindBy(css = "[class='lessons'] .lessons__new-item-container")
+    @FindBy(css = "[class='lessons'] .lessons__new-item_hovered, .lessons__new-item_hovered:active, .lessons__new-item_hovered:link, .lessons__new-item_hovered:visited")
     private List<WebElement> popularCursItems;
 
     @FindBy(css = "[class='subtitle-new']")

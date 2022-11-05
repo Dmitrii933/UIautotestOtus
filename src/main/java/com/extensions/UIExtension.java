@@ -1,7 +1,9 @@
-package extensions;
+package com.extensions;
 
-import annotations.Driver;
-import driver.DriverFactory;
+import com.annotations.Driver;
+import com.driver.Browser;
+import com.driver.DriverFactory;
+import com.exception.BrowserNotSupportedException;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -14,11 +16,10 @@ import java.security.PrivilegedAction;
 import java.util.HashSet;
 import java.util.Set;
 
-import static driver.Browser.*;
-
 public class UIExtension implements BeforeEachCallback, AfterEachCallback {
 
   private WebDriver driver = null;
+  private String browser = System.getProperty("browser");
 
   private Set<Field> getAnnotatedFields(Class<? extends Annotation> annotation, ExtensionContext extensionContext) {
     Set<Field> set = new HashSet<>();
@@ -35,9 +36,9 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback {
   }
 
   @Override
-  public void beforeEach(ExtensionContext extensionContext) {
-    driver = new DriverFactory().getDriver(EDGE);
+  public void beforeEach(ExtensionContext extensionContext) throws BrowserNotSupportedException {
     Set<Field> fields = getAnnotatedFields(Driver.class, extensionContext);
+    driver = new DriverFactory().getDriver(browser);
 
     for (Field field : fields) {
       if (field.getType().getName().equals(WebDriver.class.getName())) {

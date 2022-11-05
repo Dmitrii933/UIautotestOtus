@@ -22,7 +22,7 @@
         <browser>CHROME</browser>
         <webdriver.base.url>https://otus.ru</webdriver.base.url>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <cucumber.version>7.8.1</cucumber.version>
+        <cucumber.version>5.7.0</cucumber.version>
 
 </properties>
 
@@ -121,16 +121,6 @@
             <artifactId>javafaker</artifactId>
             <version>${faker.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
 </project>

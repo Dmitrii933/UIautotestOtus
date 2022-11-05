@@ -1,17 +1,15 @@
 package main;
 
-import annotations.Driver;
-import componets.PopularCursComponent;
-import extensions.UIExtension;
+import com.annotations.Driver;
+import com.componets.PopularCursComponent;
+import com.extensions.UIExtension;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import pages.MainPage;
 
-import javax.swing.*;
+import org.openqa.selenium.WebDriver;
+import com.pages.MainPage;
+
 
 
 @ExtendWith(UIExtension.class)
@@ -27,7 +25,7 @@ public class MainPage_Test {
                 .open();
 
         new PopularCursComponent(driver)
-                .filterStream("Специализации");
+                .filterStream();
     }
 
     @Test
@@ -37,7 +35,7 @@ public class MainPage_Test {
                 .open();
 
         new PopularCursComponent(driver)
-                .clickPopularCursItems(3);
+                .movePopularCursItems(0);
 
     }
 

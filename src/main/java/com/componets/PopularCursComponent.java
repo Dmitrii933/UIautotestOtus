@@ -1,22 +1,19 @@
 package com.componets;
 
-import com.google.common.collect.Comparators;
-import com.pages.MainPage;
+import com.pages.SolutionarchitectPage;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import javax.lang.model.element.Element;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Predicate;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 
 public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
@@ -25,23 +22,19 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
 
         super(driver);
     }
-    @FindBy(css = "[class='lessons'] .lessons__new-item_hovered, .lessons__new-item_hovered:active, .lessons__new-item_hovered:link, .lessons__new-item_hovered:visited")
+    @FindBy(css = ".lessons__new-item-bg")
     private List<WebElement> popularCursItems;
 
-    private List<String> nameKurs = new ArrayList<>();
+    @FindBy(css =".lessons__new-item-start")
+        private List<WebElement> dateElement;
+
+    @FindBy(css = ".lessons__new-item-container")
+    private List<WebElement> titleCursItems;
+
     private List<String> dateKurs = new ArrayList<>();
     private List<Integer> dateKursInt = new ArrayList<>();
 
-    @FindBy(css = ".transitional-main__event-button")
-    private WebElement buttonKurs;
 
-    public void getElementsFromPage(){
-            List<WebElement> elements = driver.findElements(By.cssSelector(".subtitle-new"));
-
-                    for(WebElement element : elements) {
-                        nameKurs.add(element.getText());
-                    }
-        }
 
 
     public void getDateFromPage() {
@@ -60,7 +53,6 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
             while (matcher.find(start)) {
                 String value = dates.substring(matcher.start(), matcher.end());
                 result = Integer.parseInt(value);
-                System.out.println(result);
                 start = matcher.end();
             }
             dateKursInt.add(result);
@@ -70,43 +62,46 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
 
     }
 
-
-
-    public MainPage movePopularCursItems(int index){
+    public PopularCursComponent movePopularCursItems(int index){
         Actions actions = new Actions(driver);
         actions
                 .moveToElement(popularCursItems.get(index))
-                .moveToElement(buttonKurs)
+                .click(popularCursItems.get(index))
+                .moveByOffset(0,0)
                 .build()
                 .perform();
 
-        return new MainPage(driver);
+        return new PopularCursComponent(driver);
     }
 
-    public void filterStream(){
-        getElementsFromPage();
-        List<String> sortedList = nameKurs
-                .stream()
-                .sorted()
-                .collect(Collectors.toList());
-        System.out.println(sortedList);
-    }
+    public PopularCursComponent filterStream(String title){
+            WebElement element = titleCursItems
+                    .stream()
+                    .filter((val) -> val.getText().trim().toLowerCase(Locale.ROOT).contains(title.toLowerCase(Locale.ROOT).trim()))
+                    .findFirst()
+                    .orElseThrow(NoSuchElementException::new);
+            element.click();
+            return new PopularCursComponent(driver);
 
-    public void dateStreamMax(){
+        }
+
+    public PopularCursComponent dateStreamMax(){
 setDate();
 Optional<Integer> sortedList = dateKursInt
                 .stream()
-                .sorted()
                 .reduce((x,y)-> Math.max(x, y));
-        System.out.println(sortedList);
+        System.out.println(sortedList.get());
+
+        return new PopularCursComponent(driver);
     }
 
-    public void dateStreamMin(){
+    public PopularCursComponent dateStreamMin(){
         Optional<Integer> sortedList1 = dateKursInt
                 .stream()
-                .sorted()
                 .reduce((x,y)-> Math.min(x, y));
-        System.out.println(sortedList1);
+        System.out.println(sortedList1.get());
+
+        return new PopularCursComponent(driver);
     }
 
 }

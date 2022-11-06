@@ -24,8 +24,11 @@ public class MainPage_Test {
         new MainPage(driver)
                 .open();
 
-        new PopularCursComponent(driver)
-                .filterStream();
+        PopularCursComponent Pop =  new PopularCursComponent(driver);
+        Pop.filterStream();
+        Pop.dateStreamMax();
+        Pop.dateStreamMin();
+
     }
 
     @Test

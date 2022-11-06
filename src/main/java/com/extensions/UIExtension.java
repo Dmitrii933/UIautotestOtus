@@ -15,6 +15,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class UIExtension implements BeforeEachCallback, AfterEachCallback {
 
@@ -39,6 +40,9 @@ public class UIExtension implements BeforeEachCallback, AfterEachCallback {
   public void beforeEach(ExtensionContext extensionContext) throws BrowserNotSupportedException {
     Set<Field> fields = getAnnotatedFields(Driver.class, extensionContext);
     driver = new DriverFactory().getDriver(browser);
+    driver.manage().window().maximize();
+    driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
     for (Field field : fields) {
       if (field.getType().getName().equals(WebDriver.class.getName())) {

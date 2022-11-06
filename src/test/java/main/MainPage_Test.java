@@ -26,6 +26,7 @@ public class MainPage_Test {
         String title = "Cloud Solution Architecture";
         new MainPage(driver)
                 .open();
+
         new PopularCursComponent(driver).
                 filterStream(title);
 

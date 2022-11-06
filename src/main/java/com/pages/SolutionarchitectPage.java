@@ -12,7 +12,6 @@ public class SolutionarchitectPage extends AbsBasePage<SolutionarchitectPage>{
     public SolutionarchitectPage(WebDriver driver) {
         super(driver);
     }
-
     @FindBy(css = "[class = container] h1")
     private WebElement titleHeader;
 

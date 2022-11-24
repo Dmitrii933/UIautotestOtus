@@ -1,5 +1,6 @@
 package com.componets;
 
+import com.data.DateData;
 import com.pages.SolutionarchitectPage;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -8,8 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import java.util.function.BinaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,29 +41,36 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
 
 
 
-    public void getDateFromPage() {
+    private List<LocalDate> getDateFromPage() {
         List<WebElement> elements = driver.findElements(By.cssSelector(".lessons__new-item-start"));
-        for (WebElement element : elements) {
-            dateKurs.add(element.getText());
-        }
+
+        List<LocalDate> localDateList= elements
+                .stream()
+                .map(element -> {
+                    String text = element.getText().trim().replace("С ", "");
+                    Pattern pattern = Pattern.compile("(\\d+\\s+[а-яА-Я]+).*");
+                    Matcher matcher = pattern.matcher(text);
+                    if(matcher.find()){
+                        String data = matcher.group(1);
+                        String month = data.split("\\s+")[1].trim();
+                        return  data.replace(month, String.format("%d",getMonthByName(month))) + " " + LocalDate.now().getYear();
+                    }
+                    return null;
+                })
+                .map(dataStr -> {
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+                    return LocalDate.parse(dataStr,dateTimeFormatter);
+                })
+                .collect(Collectors.toList());
+        return  localDateList;
     }
-    public void setDate(){
-        getDateFromPage();
-        for(String dates : dateKurs) {
-            Pattern pattern = Pattern.compile("\\d+");
-            Matcher matcher = pattern.matcher(dates);
-            int start = 0;
-            int result = 0;
-            while (matcher.find(start)) {
-                String value = dates.substring(matcher.start(), matcher.end());
-                result = Integer.parseInt(value);
-                start = matcher.end();
+    private int getMonthByName(String name){
+        for (DateData data:DateData.values()) {
+            if(data.getName().equals(name)){
+                return data.getNumber();
             }
-            dateKursInt.add(result);
-
         }
-
-
+        return -1;
     }
 
     public PopularCursComponent movePopularCursItems(int index){
@@ -85,23 +96,14 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
 
         }
 
-    public PopularCursComponent dateStreamMax(){
-setDate();
-Optional<Integer> sortedList = dateKursInt
+    public LocalDate dateStreamReduce(BinaryOperator<LocalDate> operator){
+        List<LocalDate> localDates = getDateFromPage();
+        LocalDate dateMaxMin = localDates
                 .stream()
-                .reduce((x,y)-> Math.max(x, y));
-        System.out.println(sortedList.get());
-
-        return new PopularCursComponent(driver);
+                //.reduce((x,y)-> x.isAfter(y) ? y : x)
+                .reduce(operator)
+                .orElse(null);
+        return dateMaxMin;
     }
-
-    public PopularCursComponent dateStreamMin(){
-        Optional<Integer> sortedList1 = dateKursInt
-                .stream()
-                .reduce((x,y)-> Math.min(x, y));
-        System.out.println(sortedList1.get());
-
-        return new PopularCursComponent(driver);
-    }
-
 }
+

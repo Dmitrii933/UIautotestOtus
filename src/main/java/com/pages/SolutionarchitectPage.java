@@ -18,8 +18,7 @@ public class SolutionarchitectPage extends AbsBasePage<SolutionarchitectPage>{
 
     public SolutionarchitectPage getTitle(String title){
         Assertions
-                .assertTrue(titleHeader.getText().trim().contains(title),
-                        String.format("Title %s don't contains %s", titleHeader.getText(), title));
+                .assertTrue(titleHeader.getText().trim().contains(title));
         return this;
 
     }

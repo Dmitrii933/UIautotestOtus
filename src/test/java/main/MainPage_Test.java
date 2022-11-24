@@ -22,7 +22,7 @@ public class MainPage_Test {
     private WebDriver driver;
 
     @Test
-    public void filterTest (){
+    public void checkElementToTitleTest (){
         String title = "Cloud Solution Architecture";
         new MainPage(driver)
                 .open();
@@ -42,7 +42,7 @@ new SolutionarchitectPage(driver)
                 .open();
 
         new PopularCursComponent(driver)
-        .dateStreamMax();
+                .dateStreamReduce((x,y)-> y.isAfter(x) ? y : x);
     }
 
     @Test
@@ -52,18 +52,18 @@ new SolutionarchitectPage(driver)
                 .open();
 
         new PopularCursComponent(driver)
-                .dateStreamMin();
+                .dateStreamReduce((x,y)-> y.isAfter(x) ? x : y);
+
     }
 
     @Test
-    public void actionMoveElementTest (){
+    public void checkElementMoveTest (){
 
         new MainPage(driver)
                 .open();
 
         new PopularCursComponent(driver)
                 .movePopularCursItems(1);
-
     }
 
 }

@@ -62,7 +62,7 @@
                         <id>analyze-compile</id>
                         <phase>compile</phase>
                         <goals>
-                            <goal>check</goal>
+                            <goal>checkc</goal>
                         </goals>
                     </execution>
                 </executions>

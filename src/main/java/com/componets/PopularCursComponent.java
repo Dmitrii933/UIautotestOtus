@@ -35,11 +35,6 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
     @FindBy(css = ".lessons__new-item-container")
     private List<WebElement> titleCursItems;
 
-    private List<String> dateKurs = new ArrayList<>();
-    private List<Integer> dateKursInt = new ArrayList<>();
-
-
-
 
     private List<LocalDate> getDateFromPage() {
         List<WebElement> elements = driver.findElements(By.cssSelector(".lessons__new-item-start"));

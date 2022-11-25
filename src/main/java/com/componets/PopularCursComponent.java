@@ -70,7 +70,7 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
                 return data.getNumber();
             }
         }
-        return -1;
+        return 0;
     }
 
     public PopularCursComponent movePopularCursItems(int index){

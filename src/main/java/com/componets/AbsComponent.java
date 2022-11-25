@@ -9,6 +9,6 @@ public abstract class AbsComponent<T> {
     public AbsComponent(WebDriver driver) {
         this.driver = driver;
 
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 }

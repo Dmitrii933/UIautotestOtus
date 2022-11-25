@@ -22,7 +22,7 @@ public class MainPage_Test {
     private WebDriver driver;
 
     @Test
-    public void checkElementToTitleTest (){
+    public void checkElementToTitleTest() {
         String title = "Cloud Solution Architecture";
         new MainPage(driver)
                 .open();
@@ -30,34 +30,34 @@ public class MainPage_Test {
         new PopularCursComponent(driver).
                 filterStream(title);
 
-new SolutionarchitectPage(driver)
-                        .getTitle(title);
+        new SolutionarchitectPage(driver)
+                .pageHeaderShouldBeSameAs(title);
 
     }
 
     @Test
-    public void maxDateTest (){
+    public void maxDateTest() {
 
         new MainPage(driver)
                 .open();
 
         new PopularCursComponent(driver)
-                .dateStreamReduce((x,y)-> y.isAfter(x) ? y : x);
+                .dateStreamReduce((x, y) -> y.isAfter(x) ? y : x);
     }
 
     @Test
-    public void minDateTest (){
+    public void minDateTest() {
 
         new MainPage(driver)
                 .open();
 
         new PopularCursComponent(driver)
-                .dateStreamReduce((x,y)-> y.isAfter(x) ? x : y);
+                .dateStreamReduce((x, y) -> y.isAfter(x) ? x : y);
 
     }
 
     @Test
-    public void checkElementMoveTest (){
+    public void checkElementMoveTest() {
 
         new MainPage(driver)
                 .open();

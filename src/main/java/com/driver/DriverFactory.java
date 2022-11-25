@@ -9,11 +9,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
 
 
-public class DriverFactory implements IDriverFactory{
+public class DriverFactory implements IDriverFactory {
 
     @Override
     public WebDriver getDriver(String browser) throws BrowserNotSupportedException {
-        switch (browser){
+        switch (browser) {
             case "EDGE":
                 WebDriverManager.edgedriver().setup();
                 return new EdgeDriver();

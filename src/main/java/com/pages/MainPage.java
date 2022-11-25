@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
-public class MainPage extends AbsBasePage<MainPage>{
+public class MainPage extends AbsBasePage<MainPage> {
 
     public MainPage(WebDriver driver) {
         super(driver);

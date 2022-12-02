@@ -10,7 +10,7 @@ public abstract class AbsBasePage<T> {
 
     protected WebDriver driver;
 
-    @FindBy(css = "[class = container] h1")
+    @FindBy(css = "h1[class = tn-atom]")
     private WebElement titleHeader;
 
     private String hostname = System.getProperty("webdriver.base.url");

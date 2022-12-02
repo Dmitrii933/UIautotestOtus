@@ -29,6 +29,9 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
     @FindBy(css = ".lessons__new-item-bg")
     private List<WebElement> popularCursItems;
 
+    @FindBy(css = ".cookies__button")
+    private WebElement cookies;
+
     @FindBy(css = ".lessons__new-item-start")
     private List<WebElement> dateElement;
 
@@ -87,6 +90,7 @@ public class PopularCursComponent extends AbsComponent<PopularCursComponent> {
                 .filter((val) -> val.getText().trim().toLowerCase(Locale.ROOT).contains(title.toLowerCase(Locale.ROOT).trim()))
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new);
+        cookies.click();
         element.click();
         return new PopularCursComponent(driver);
 

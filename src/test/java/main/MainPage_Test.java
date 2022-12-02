@@ -23,7 +23,7 @@ public class MainPage_Test {
 
     @Test
     public void checkElementToTitleTest() {
-        String title = "Cloud Solution Architecture";
+        String title = "Специализация QA Automation Engineer";
         new MainPage(driver)
                 .open();
 
@@ -31,7 +31,7 @@ public class MainPage_Test {
                 filterStream(title);
 
         new SolutionarchitectPage(driver)
-                .pageHeaderShouldBeSameAs(title);
+                .pageHeaderShouldBeSameAs("QA Automation");
 
     }
 
